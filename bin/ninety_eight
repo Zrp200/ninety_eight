@@ -1,0 +1,110 @@
+require 'ninety_eight'
+BEGIN {
+	puts %Q{\t\tThe Game of 98}
+	puts %Q{\t\t--------------}
+	print "\tWould you like to see the rules? (y/n) => "
+	if gets.chomp.downcase.include?("y")
+		puts
+		sleep(1.5)
+		puts "\t\tRules"
+		puts "\t\t-----"
+		puts
+		sleep(2)
+		puts "\tThe point of the game is to get your opponent to raise the value above 98 by \nputting down one of four cards that either increase or decrease the value."
+		puts
+		sleep(3.5)
+		puts "\t\tValues"
+		puts "\t\t------"
+		puts
+		sleep(2)
+		# \u00B7 is a bullet point
+		puts "\t\u00B7 Aces are worth 1"
+		sleep(2.5)
+		puts "\t\u00B7 2 through 9 are worth themselves; example: 2 is worth 2"
+		sleep(2.5)
+		puts "\t\u00B7 10s are worth -10"
+		sleep(2.5)
+		puts "\t\u00B7 Jacks and Queens are worth nothing"
+		sleep(2.5)
+		puts "\t\u00B7 Kings set the value to 98"
+		gets
+	end
+		puts
+		puts
+		puts
+}
+def test(value, card)
+	if card.num == "King"; value = 98
+	else; value = $value + card.value
+	end
+	value = -100 if value > 98
+end
+def pause(p)
+	sleep(p)
+	puts
+end
+END {
+	puts
+	sleep(2.5)
+	puts "\tThanks for playing '98'!"
+	sleep(2.5)
+}
+deal = Hand.new
+user = Hand.new
+$value1, $value2, $value3, $value4, $value = 0,0,0,0,0
+loop {
+$deck.shuffle!
+pause(1.5)
+puts "\tIt's the dealer's turn!"
+pause(2.5)
+i = 1
+for card in deal.hand
+	case i
+		when 1 then test($value1, card)
+		when 2 then test($value2, card)
+		when 3 then test($value3, card)
+		when 4 then test($value4, card)
+	end
+	i += 1
+end
+if $value1 >= $value2 && $value1 >= $value3 && $value1 >= $value4
+	$card = deal.hand[0]
+	deal.play(deal.hand[0])
+elsif $value2 >= $value3 && $value2 >= $value4
+	$card = deal.hand[1]
+	deal.play(deal.hand[1])
+elsif $value3 >= $value4
+	$card = deal.hand[2]
+	deal.play(deal.hand[2])
+else
+	$card = deal.hand[3]
+	deal.play(deal.hand[3])
+end
+puts "\tThe dealer played a(n) #{$card.num}"
+puts
+sleep(0.5)
+puts "\tThe value is now #{$value}"
+puts
+pause(1.5)
+if $value > 98
+	puts "\tYou win!"
+	break
+end
+puts "\tIt's your turn!"
+pause(1.5)
+print "\tThese are your cards: "
+user.list
+pause(0.5)
+print "\tType in either the name of the card you want to play or the first letter of it => "
+user.play(UserCard.new(gets.chomp))
+pause (1.5)
+puts "\tYou drew a #{user.hand[3].num}"
+pause(0.5)
+puts "\tThe value is now #{$value}"
+pause(1.5)
+if $value > 98
+	puts "\tYou lose!"
+	break
+end
+$deck.shuffle!
+}
