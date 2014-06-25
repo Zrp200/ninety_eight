@@ -10,4 +10,5 @@ Gem::Specification.new do |config|
   config.bindir = 'bin'
   config.executables << 'ninety_eight'
   config.test_files = ['.rspec', 'spec/spec_helper.rb', 'spec/98spec.rb']
+  config.extra_rdoc_files = ['README.md']
 end
