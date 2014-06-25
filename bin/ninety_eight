@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'ninety_eight'
 BEGIN {
 	puts %Q{\t\tThe Game of 98}
