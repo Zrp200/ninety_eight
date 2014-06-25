@@ -9,5 +9,5 @@ Gem::Specification.new do |config|
   config.homepage = 'https://rubygems.org/gems/ninety_eight'
   config.bindir = 'bin'
   config.executables << 'ninety_eight'
-  config.test_files = ['.rspec', 'spec/spec_helper.rb', '98spec.rb']
+  config.test_files = ['.rspec', 'spec/spec_helper.rb', 'spec/98spec.rb']
 end
