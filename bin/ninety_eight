@@ -12,7 +12,7 @@ BEGIN {
 			puts "\t\u00B7 10s are worth -10"
 			puts "\t\u00B7 Jacks and Queens are worth nothing"
 			puts "\t\u00B7 Kings set the value to 98"
-			quit
+			exit
 	end
 }
 
