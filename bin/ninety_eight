@@ -9,11 +9,8 @@ BEGIN {
 			puts "\u00b7 Values"
 			puts "\t\u00B7 Aces are worth 1"
 			puts "\t\u00B7 2 through 9 are worth themselves; example: 2 is worth 2"
-			sleep(2.5)
 			puts "\t\u00B7 10s are worth -10"
-			sleep(2.5)
 			puts "\t\u00B7 Jacks and Queens are worth nothing"
-			sleep(2.5)
 			puts "\t\u00B7 Kings set the value to 98"
 	end
 }
