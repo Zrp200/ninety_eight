@@ -10,7 +10,7 @@ def pause(p) # Shortcut for sleep and a newline.
 	sleep(p)
 	puts
 end
-class Card # The objects that are used in gameplay. Found in _$deck_.
+class Card # The objects that are used in gameplay. Found in $deck.
 # The number on the card
 	attr_reader :num
 # Creates a new card.
@@ -34,10 +34,10 @@ class UserCard < Card
 		@num = @@num[card.capitalize.to_sym]
 	end
 end
-class Hand # The gameplay happens here. Holds four cards and interacts with _$deck_.
+class Hand # The gameplay happens here. Holds four cards and interacts with $deck.
 # The player's actual hand
 	attr_reader :hand
-	def initialize # Creates a new Hand. Takes four cards from _$deck_ and shuffles _$deck_.
+	def initialize # Creates a new Hand. Takes four cards from $deck and shuffles $deck.
 		$deck.shuffle!
 		@hand = [$deck.shift, $deck.shift, $deck.shift, $deck.shift]
 		$deck.shuffle!
