@@ -1,49 +1,23 @@
 #!/usr/bin/env ruby
 require 'ninety_eight'
 BEGIN {
-	puts %Q{\t\tThe Game of 98}
-	puts %Q{\t\t--------------}
-	print "\tWould you like to see the rules? (y/n) => "
-	if gets.chomp.downcase.include?("y")
-		puts
-		sleep(1.5)
-		puts "\t\tRules"
-		puts "\t\t-----"
-		puts
-		sleep(2)
-		puts "\tThe point of the game is to get your opponent to raise the value above 98 by \nputting down one of four cards that either increase or decrease the value."
-		puts
-		sleep(3.5)
-		puts "\t\tValues"
-		puts "\t\t------"
-		puts
-		sleep(2)
-		# \u00B7 is a bullet point
-		puts "\t\u00B7 Aces are worth 1"
-		sleep(2.5)
-		puts "\t\u00B7 2 through 9 are worth themselves; example: 2 is worth 2"
-		sleep(2.5)
-		puts "\t\u00B7 10s are worth -10"
-		sleep(2.5)
-		puts "\t\u00B7 Jacks and Queens are worth nothing"
-		sleep(2.5)
-		puts "\t\u00B7 Kings set the value to 98"
-		gets
+	ARGV[0] = "-h" if ARGV[0] == "--help"
+	case ARGV[0]
+		when "-h"
+			puts "\u00b7 Rules"
+			puts "\t\u00b7 The point of the game is to get your opponent to raise the value above 98 by putting down one of four cards that either increase or decrease the value."
+			puts "\u00b7 Values"
+			puts "\t\u00B7 Aces are worth 1"
+			puts "\t\u00B7 2 through 9 are worth themselves; example: 2 is worth 2"
+			sleep(2.5)
+			puts "\t\u00B7 10s are worth -10"
+			sleep(2.5)
+			puts "\t\u00B7 Jacks and Queens are worth nothing"
+			sleep(2.5)
+			puts "\t\u00B7 Kings set the value to 98"
 	end
-		puts
-		puts
-		puts
 }
-def test(value, card)
-	if card.num == "King"; value = 98
-	else; value = $value + card.value
-	end
-	value = -100 if value > 98
-end
-def pause(p)
-	sleep(p)
-	puts
-end
+
 END {
 	puts
 	sleep(2.5)
