@@ -1,5 +1,15 @@
 # Errors that happen in the game. If you get this error, everything is working fine.
 class CardError < StandardError; end
+def test(value, card) # Tests value of cards. Used by CPU.
+	if card.num == "King"; value = 98
+	else; value = $value + card.value
+	end
+	value = -100 if value > 98
+end
+def pause(p) # Shortcut for sleep and a newline.
+	sleep(p)
+	puts
+end
 class Card # The objects that are used in gameplay. Found in _$deck_.
 # The number on the card
 	attr_reader :num
