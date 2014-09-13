@@ -9,4 +9,4 @@ rvm:
 - jruby-19mode
 script: bundle exec rspec spec
 before_install:
-- gem install ninety-eight
+- gem install ninety_eight
