@@ -1,6 +1,6 @@
 Gem::Specification.new do |config|
   config.name = 'ninety_eight'
-  config.version = '0.1.0'
+  config.version = '0.1.1'
   config.summary = 'The game of 98'
   config.description = "A computer genarated version of the card game 98. Comes with an executable with the actual game."
   config.author = "Zachary Perlmutter"
