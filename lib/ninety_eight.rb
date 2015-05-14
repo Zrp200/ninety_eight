@@ -1,3 +1,4 @@
+module NinetyEight
 # Errors that happen in the game. If you get this error, everything is working fine.
 class CardError < StandardError; end
 def test(value, card) # Tests value of cards. Used by CPU.
@@ -9,20 +10,7 @@ def pause(p) # Shortcut for sleep and a newline.
 	sleep p
 	puts
 end
-class Card # The objects that are used in gameplay. Found in $deck.
-# The number on the card
-	attr_reader :num
-# Creates a new card.
-	def initialize(card); @num = card; end
-	def value # Returns the Card's value based on its :num attribute.
-		return case @num
-			when "Ace" then 1
-			when 2..9 then @num
-			when 10 then -10
-			when "King" then 98 #Sets value to 98
-		else 0 end
-	end
-end
+
 # A subclass of Card that can imitate its superclass. Used to make user input Card-like.
 class UserCard < Card
 # Abbrevations
