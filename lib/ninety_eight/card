@@ -1,0 +1,15 @@
+module NinetyEight
+  class Card # The objects that are used in gameplay. Found in $deck.
+# The number on the card
+	attr_reader :num
+# Creates a new card.
+	def initialize(card); @num = card; end
+	def value # Returns the Card's value based on its :num attribute.
+		return case @num
+			when "Ace" then 1
+			when 2..9 then @num
+			when 10 then -10
+			when "King" then 98 #Sets value to 98
+		else 0 end
+	end
+end
