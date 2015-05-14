@@ -3,7 +3,12 @@ module NinetyEight
 # The number on the card
 	attr_reader :num
 # Creates a new card.
-	def initialize(card); @num = card; end
+	@@num = {King: "King", K: "King", Queen: "Queen", Q: "Queen", Ace: "Ace", A: "Ace", Jack: "Jack", J: "Jack"}
+	def initialize(card) # Creates a new UserCard. Looks at abbrevations and modifies user input so it is Card-like.
+		@@num.default = card.to_i
+		@num = @@num.fetch(card.capitalize.to_sym) {card}
+	end
+end
 	def value # Returns the Card's value based on its :num attribute.
 		return case @num
 			when "Ace" then 1
