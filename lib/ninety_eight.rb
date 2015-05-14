@@ -24,9 +24,9 @@ class Hand # The gameplay happens here. Holds four cards and interacts with $dec
 # The player's actual hand
 	attr_reader :hand
 	def initialize # Creates a new Hand. Takes four cards from $deck and shuffles $deck.
-		$deck.shuffle!
+		Deck.shuffle!
 		@hand = $deck.shift, $deck.shift, $deck.shift, $deck.shift
-		$deck.shuffle!
+		Deck.shuffle!
 	end
 # Lists the cards in attribute :hand.
 	def list
@@ -37,11 +37,11 @@ class Hand # The gameplay happens here. Holds four cards and interacts with $dec
 		for cards in @hand
 			if cards.num == card.num and done == false
 				done, $legal = true
-				$deck.shuffle!
+				Deck.shuffle!
 				draw, discard = $deck.shift, @hand[i]
 				@hand.delete_at i
-				$deck.push discard
-				$deck.shuffle!
+				Deck.push discard
+				Deck.shuffle!
 				@hand << draw
 			end
 			i += 1
@@ -51,19 +51,19 @@ class Hand # The gameplay happens here. Holds four cards and interacts with $dec
 		else $value += card.value end
 	end
 end
-$deck = Array.new
+Deck = Array.new
 4.times do
-	$deck.shuffle!
-	$deck.push(Card.new("Ace"))
-	$deck.shuffle!
-	$deck.push(Card.new("King"))
-	$deck.shuffle!
-	$deck.push(Card.new("Queen"))
-	$deck.shuffle!
-	$deck.push(Card.new("Jack"))
-	$deck.shuffle!
+	Deck.shuffle!
+	Deck.push(Card.new("Ace"))
+	Deck.shuffle!
+	Deck.push(Card.new("King"))
+	Deck.shuffle!
+	Deck.push(Card.new("Queen"))
+	Deck.shuffle!
+	Deck.push(Card.new("Jack"))
+	Deck.shuffle!
 	(2..10).each do |num|
-		$deck.push(Card.new(num))
-		$deck.shuffle!
+		Deck.push(Card.new(num))
+		Deck.shuffle!
 	end
 end
