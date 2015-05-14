@@ -10,16 +10,6 @@ def pause(p) # Shortcut for sleep and a newline.
 	sleep p
 	puts
 end
-
-# A subclass of Card that can imitate its superclass. Used to make user input Card-like.
-class UserCard < Card
-# Abbrevations
-	@@num = {King: "King", K: "King", Queen: "Queen", Q: "Queen", Ace: "Ace", A: "Ace", Jack: "Jack", J: "Jack"}
-	def initialize(card) # Creates a new UserCard. Looks at abbrevations and modifies user input so it is Card-like.
-		@@num.default = card.to_i
-		@num = @@num.fetch card.capitalize.to_sym
-	end
-end
 class Hand # The gameplay happens here. Holds four cards and interacts with $deck.
 # The player's actual hand
 	attr_reader :hand
