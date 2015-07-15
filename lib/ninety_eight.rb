@@ -35,35 +35,30 @@ class UserCard < Card
 	end
 end
 class Hand # The gameplay happens here. Holds four cards and interacts with $deck.
-# The player's actual hand
-	attr_reader :hand
+
+	attr_reader :hand # The player's actual hand
 	def initialize # Creates a new Hand. Takes four cards from $deck and shuffles $deck.
 		$deck.shuffle!
 		@hand = [$deck.shift, $deck.shift, $deck.shift, $deck.shift]
 		$deck.shuffle!
 	end
-# Lists the cards in attribute :hand.
-	def list; @hand.each {|card| print "\t#{card.num}"}; end
-	def play(card) # Gameplay method
-		$legal, i, done = false, 0, false
-		for cards in @hand
-			if cards.num == card.num and done == false
-				done = true
-				$legal = true
+	def list # Lists the cards in attribute :hand.
+		@hand.each {|card| print "\t#{card.num}"}
+	end
+	def play(selected_card) # Gameplay method
+		legal = @hand.each_with_index do |card, index|
+			if cards.num == selected_card.num 
+				$deck.push @hand.delete_at(index)
 				$deck.shuffle!
-				draw = $deck.shift
-				discard = @hand[i]
-				@hand.delete_at i
-				$deck.push discard
+				@hand << $deck.shift
 				$deck.shuffle!
-				@hand << draw
+				break true
 			end
-			i += 1
+			false
 		end
-		raise CardError, "\aCard not Allowed\a" unless $legal
-		if card.num == "King"; $value = 98
-		else; $value += card.value
-		end
+		raise CardError, "\aCard not Allowed\a" unless legal
+		if card.num == "King" then $value = 98
+		else $value += card.value end
 	end
 end
 $deck = Array.new
