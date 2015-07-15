@@ -68,8 +68,8 @@ pause(1.5)
 print "\tThese are your cards: "
 user.list
 pause(0.5)
-print "\tType in either the name of the card you want to play or the first letter of it => "
-user.play(UserCard.new(gets.chomp))
+print "\tType in either the name of the card you want to play or the first letter of it\n> "
+user.play UserCard.new(gets.chomp)
 pause (1.5)
 puts "\tYou drew a #{user.hand[3].num}"
 pause(0.5)
