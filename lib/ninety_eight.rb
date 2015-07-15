@@ -1,3 +1,5 @@
+require "card_deck"
+include CardDeck
 # Errors that happen in the game. If you get this error, everything is working fine.
 class CardError < StandardError; end
 def test(value, card) # Tests value of cards. Used by CPU.
@@ -10,36 +12,31 @@ def pause(p) # Shortcut for sleep and a newline.
 	sleep(p)
 	puts
 end
-class Card # The objects that are used in gameplay. Found in $deck.
-# The number on the card
-	attr_reader :num
-# Creates a new card.
-	def initialize(card); @num = card; end
+class Card # The objects that are used in gameplay.
+	alias_method :old_initialize, :initialize # Adding to previously defined initialization method
+	@@num = {K: "King", Q: "Queen",  A: "Ace", J: "Jack"} # Abbrevations
+	def initialize(num=Num.sample, suit=Suit.sample)
+		num = @@num.fetch num.capitalize.to_sym if num.is_a? String && num.length == 1
+		num = num.to_i if num.to_i.to_s == num.to_s
+		old_initialize(num, suit)
+	end
 	def value # Returns the Card's value based on its :num attribute.
-		case self.num
-			when "Ace" then return 1
-			when 2..9 then return self.num
-			when 10 then return -10
-			when "King" then return 98 #Sets value to 98
-		else; return 0
+		case @num
+			when "Ace" then 1
+			when 2..9 then @num
+			when 10 then -10
+			when "King" then 98 #Sets value to 98
+		else 0
 		end
 	end
 end
 # A subclass of Card that can imitate its superclass. Used to make user input Card-like.
-class UserCard < Card
-# Abbrevations
-	@@num = {King: "King", K: "King", Queen: "Queen", Q: "Queen", Ace: "Ace", A: "Ace", Jack: "Jack", J: "Jack"}
-	def initialize(card) # Creates a new UserCard. Looks at abbrevations and modifies user input so it is Card-like.
-		@@num.default = card.to_i
-		@num = @@num[card.capitalize.to_sym]
-	end
-end
 class Hand # The gameplay happens here. Holds four cards and interacts with $deck.
 
 	attr_reader :hand # The player's actual hand
 	def initialize # Creates a new Hand. Takes four cards from $deck and shuffles $deck.
-		$deck.shuffle!
-		@hand = [$deck.shift, $deck.shift, $deck.shift, $deck.shift]
+		$deck.cards.shuffle!
+		@hand = [$deck.cards.shift, $deck.cards.shift, $deck.cards.shift, $deck.cards.shift]
 		$deck.shuffle!
 	end
 	def list # Lists the cards in attribute :hand.
@@ -48,10 +45,10 @@ class Hand # The gameplay happens here. Holds four cards and interacts with $dec
 	def play(selected_card) # Gameplay method
 		legal = @hand.each_with_index do |card, index|
 			if cards.num == selected_card.num 
-				$deck.push @hand.delete_at(index)
-				$deck.shuffle!
-				@hand << $deck.shift
-				$deck.shuffle!
+				$deck.cards.push @hand.delete_at(index)
+				$deck.cards.shuffle!
+				@hand << $deck.cards.shift
+				$deck.cards.shuffle!
 				break true
 			end
 			false
@@ -61,7 +58,8 @@ class Hand # The gameplay happens here. Holds four cards and interacts with $dec
 		else $value += card.value end
 	end
 end
-$deck = Array.new
+$deck = Deck.new
+=begin
 4.times do
 	$deck.shuffle!
 	$deck.push(Card.new("Ace"))
@@ -91,3 +89,4 @@ $deck = Array.new
 	$deck.push(Card.new(2))
 	$deck.shuffle!
 end
+=end
