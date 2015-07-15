@@ -40,24 +40,18 @@ for card in deal.hand
 	end
 	i += 1
 end
-if $value1 >= $value2 && $value1 >= $value3 && $value1 >= $value4
-	$card = deal.hand[0]
-	deal.play(deal.hand[0])
-elsif $value2 >= $value3 && $value2 >= $value4
-	$card = deal.hand[1]
-	deal.play(deal.hand[1])
-elsif $value3 >= $value4
-	$card = deal.hand[2]
-	deal.play(deal.hand[2])
-else
-	$card = deal.hand[3]
-	deal.play(deal.hand[3])
+play_block = ->(index) do
+	$card = deal.hand.fetch index
+	deal.play $card
 end
-puts "\tThe dealer played a(n) #{$card.num}"
-puts
-sleep(0.5)
-puts "\tThe value is now #{$value}"
-puts
+if $value1 >= $value2 && $value1 >= $value3 && $value1 >= $value4 then play_block.call 0
+elsif $value2 >= $value3 && $value2 >= $value4 then play_block.call 1
+elsif $value3 >= $value4 then play_block.call 2 
+else play_block.call 3
+end
+puts "\tThe dealer played a(n) #{$card.num}\n"
+sleep 0.5
+puts "\tThe value is now #$value\n"
 pause(1.5)
 if $value > 98
 	puts "\tYou win!"
@@ -71,8 +65,6 @@ pause(0.5)
 print "\tType in either the name of the card you want to play or the first letter of it\n> "
 user.play UserCard.new(gets.chomp)
 pause (1.5)
-puts "\tYou drew a #{user.hand[3].num}"
-pause(0.5)
 puts "\tThe value is now #{$value}"
 pause(1.5)
 if $value > 98
